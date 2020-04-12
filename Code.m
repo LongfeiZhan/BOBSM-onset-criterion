@@ -1,9 +1,9 @@
 clear;
 clc;
-% ¶¨Òåµ±850hpaºÍ200hpaÎ³Ïò·çÍ¬Ê±Âú×ãU850£¾3m/sºÍU200£¼-5m/s²¢³ÖĞø5Ìì,
-% Í¬Ê±´ïµ½±ê×¼µÄµÚÒ»Ìì¼´×÷ÎªBOBSMµÄ±¬·¢ÈÕÆÚ×÷ÎªBOBSM±¬·¢µÄÅĞ¶Ï±ê×¼.
+% å®šä¹‰å½“850hpaå’Œ200hpaçº¬å‘é£åŒæ—¶æ»¡è¶³U850ï¼3m/så’ŒU200ï¼œ-5m/så¹¶æŒç»­5å¤©,
+% åŒæ—¶è¾¾åˆ°æ ‡å‡†çš„ç¬¬ä¸€å¤©å³ä½œä¸ºBOBSMçš„çˆ†å‘æ—¥æœŸä½œä¸ºBOBSMçˆ†å‘çš„åˆ¤æ–­æ ‡å‡†.
 
-% ¶ÁÈ¡Êı¾İ
+% è¯»å–æ•°æ®
 info = ncinfo('u.nc');
 lon = ncread('u.nc','longitude');
 lat = ncread('u.nc','latitude');
@@ -11,18 +11,18 @@ time = ncread('u.nc','time');
 lev = ncread('u.nc','level');
 u = ncread('u.nc','u');
 
-% Ê±¼ä£¨Ğ¡Ê±Êı£©×ª»»³ÉÈÕÆÚ
+% æ—¶é—´ï¼ˆå°æ—¶æ•°ï¼‰è½¬æ¢æˆæ—¥æœŸ
 t0 = datetime(1900,1,1);
-date_yyyymmdd = t0 + double(time(:))/24; %timeÎª¾à1900Äê1ÔÂ1ÈÕ00Ê±µÄĞ¡Ê±Êı
+date_yyyymmdd = t0 + double(time(:))/24; %timeä¸ºè·1900å¹´1æœˆ1æ—¥00æ—¶çš„å°æ—¶æ•°
 
-% ¿ªÊ¼°´¶¨Òå¼ÆËãÃ¿ÄêBOBSM±¬·¢ÈÕÆÚ
+% å¼€å§‹æŒ‰å®šä¹‰è®¡ç®—æ¯å¹´BOBSMçˆ†å‘æ—¥æœŸ
 u850_200 = zeros(length(u),2);
 for i = 1 : length(u)
-    u850_200(i,1) = mean(u(:,:,2,i),'all'); % ÖğÊ±¿Ì850hpa·çËÙ
-    u850_200(i,2) = mean(u(:,:,1,i),'all'); % ÖğÊ±¿Ì200hpa·çËÙ
+    u850_200(i,1) = mean(u(:,:,2,i),'all'); % é€æ—¶åˆ»850hpaé£é€Ÿ
+    u850_200(i,2) = mean(u(:,:,1,i),'all'); % é€æ—¶åˆ»200hpaé£é€Ÿ
 end
 
-% ÈÕÆ½¾ù·çËÙ
+% æ—¥å¹³å‡é£é€Ÿ
 r = 1;
 daily = zeros(8702,2);
 for i = 1 : 4 : length(u850_200)
@@ -31,7 +31,7 @@ for i = 1 : 4 : length(u850_200)
     r = r + 1;
 end
 
-% Á¬Ğø5Ìì´ïµ½±ê×¼¿ªÊ¼ÈÕÆÚ
+% è¿ç»­5å¤©è¾¾åˆ°æ ‡å‡†å¼€å§‹æ—¥æœŸ
 daily_yyyymmdd = date_yyyymmdd(1:4:end);
 r = 1;
 for i = 1 : length(daily)-4
@@ -41,7 +41,7 @@ for i = 1 : length(daily)-4
     end
 end
 
-% ÌôÑ¡³öµÚÒ»´Î´ïµ½Ìõ¼şµÄÊ±¼ä£¬¼´ÎªBOBSM±¬·¢Ê±¼ä
+% æŒ‘é€‰å‡ºç¬¬ä¸€æ¬¡è¾¾åˆ°æ¡ä»¶çš„æ—¶é—´ï¼Œå³ä¸ºBOBSMçˆ†å‘æ—¶é—´
 t_str = datestr(t,'yyyy-mm-dd');
 r = 1;
 for i = 1979 : 2019
@@ -54,15 +54,3 @@ for i = 1979 : 2019
         end
     end
 end
-
-% a = datetime(begin_date)
-% xlswrite('begin_date.xls',a)
-
-
-
-
-
-
-
-
-
